@@ -103,4 +103,4 @@ No [22,6,13]₄ code was found by any method:
 
 ---
 
-*All data deterministic and exactly reproducible via `estrella_108_v14.py`.*
+*All data deterministic and exactly reproducible via `estrella_108_v13.py`.*
