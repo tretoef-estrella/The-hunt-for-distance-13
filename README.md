@@ -11,12 +11,6 @@
 
 ---
 
-![22_6_13](22_6_13.png)
-
-*Search space visualization. SEED A42 → ENTROPY FARMER → SNIPER → A13-DRAIN → A₁₂=33. Σ=1561/675 | d=12 (Gap: 1) | Proyecto Estrella.*
-
----
-
 ## The Problem
 
 Does a **[22,6,13]₄ linear code** exist?
@@ -30,10 +24,11 @@ Over GF(4) = {0, 1, ω, ω²} with ω²+ω+1=0, this is a 6-dimensional subspace
 ## The World Record — March 2026
 
 ```
-[22,6,12]₄ with A₁₂ = 33  (11 projective directions)
+[22,6,12]₄  with  A₁₂ = 33  (11 projective directions)
+Previous record: A₁₂ = 42 (Grassl, 2001) — stood for 25 years
 ```
 
-Generator matrix (encoding: 0=0, 1=1, 2=ω, 3=ω²):
+Generator matrix G (6×22 over GF(4), encoding: 0=0, 1=1, 2=ω, 3=ω²):
 
 ```
 g1 = [0,3,0,2,0,0,1,0,2,1,1,0,0,0,1,0,3,1,1,3,3,3]
@@ -96,9 +91,9 @@ print(count)  # → 33
 
 ## Six Structural Obstruction Theorems
 
-**Theorem A (Puncturing).** The unique [23,6,13]₄ code has A₁₃=174 codewords of minimum weight spanning GF(4)⁶ with rank 6. No single puncturing yields a [22,6,13]₄ code.
+**Theorem A (Puncturing).** The [23,6,13]₄ code has A₁₃=174 minimum-weight codewords spanning GF(4)⁶ with rank 6. No puncturing yields a [22,6,13]₄ code.
 
-**Theorem B (Double Puncturing).** All C(24,2)=276 pairs of punctured positions from any [24,7,13]₄ code yield d ≤ 11. Verified exhaustively.
+**Theorem B (Double Puncturing).** All C(24,2)=276 pairs of punctured positions from any [24,7,13]₄ quasi-cyclic code yield d ≤ 11. Verified exhaustively.
 
 **Theorem C (Extension).** No row g₆ ∈ GF(4)²² extends a [21,5,13]₄ code to [22,6,13]₄. Verified over 500,000+ candidates.
 
@@ -106,7 +101,9 @@ print(count)  # → 33
 
 **Theorem E (CSP Collapse).** Every greedy column-by-column construction of a putative [22,6,13]₄ parity matrix collapses universally at column 15. Verified over 200 random restarts.
 
-**Theorem F (PG(5,4) Attractor).** The A₁₂=42 configuration has a non-trivial Z₃ automorphism group creating a gravitational attractor. The progression 42→39→36→33 confirms Z₃ symmetry persists. The diamond, if it exists, requires A₁₂=0 and trivial automorphism group.
+**Theorem F (PG(5,4) Attractor).** The A₁₂=42 configuration has a non-trivial Z₃ automorphism group, acting as a gravitational attractor in PG(5,4). The progression 42→39→36→33 confirms Z₃ symmetry persists at every record. The diamond, if it exists, requires A₁₂=0 and trivial automorphism group.
+
+Full proofs in [THEOREMS.md](THEOREMS.md).
 
 ---
 
@@ -116,7 +113,7 @@ print(count)  # → 33
 
 Supported by: 1.2B+ evaluations · 24+ closed construction routes · 6 obstruction theorems · Delsarte LP bound confirms the problem remains genuinely open.
 
-The mean codeword weight for any [22,6,13]₄ code is exactly **E[w] = 67584/4095 = 16.504029...** (from MacWilliams identities). This is a necessary condition any candidate must satisfy.
+The mean codeword weight for any [22,6,13]₄ code is exactly **E[w] = 67584/4095 = 16.504029...** (MacWilliams identities, B₁ = 0). Any candidate code must satisfy this.
 
 ---
 
@@ -126,33 +123,22 @@ The mean codeword weight for any [22,6,13]₄ code is exactly **E[w] = 67584/409
 |------|-------------|
 | README.md | This file |
 | GUIDE.md | Complete guide for researchers and newcomers |
-| STRATEGIES.md | The 108 Doctrines — full catalogue of search strategies |
-| RESULTS.md | All verified matrices, weight distributions, and data |
-| THEOREMS.md | Six proven theorems with proofs |
-| CHRONOLOGY.md | Narrative timeline of the campaign |
+| RESULTS.md | All verified matrices, weight distributions, and campaign data |
+| THEOREMS.md | Six obstruction theorems + five structural theorems with proofs |
+| THE CHRONOLOGY.md | Narrative timeline of the campaign |
+| OPEN_PROBLEMS.md | What remains open and how to contribute |
+| V13_RUNNING_IN_TERMINAL.md | Historical snapshot — the moment A₁₂=42 was first achieved |
+| V15_Italian_Job_Did_Not_Work.md | How 720M evaluations proved A₁₂=42 is a geometric floor |
 | CITATION.md | Citation metadata (BibTeX, APA, IEEE) |
-| LICENSE.md | Business Source License 1.1 + SAMAEL Decree |
-| estrella_108_v13.py | The 108 Doctrines Engine (v13) |
-| paper_v13_22_6_12.pdf | Original campaign paper (A₁₂=42 result) |
-| 22_6_13.png | Search space visualization |
-
-## Quick Start
-
-**1.** Download [`estrella_108_v13.py`](estrella_108_v13.py) to your Downloads folder.
-
-**2.** Run it (requires Python 3.6+, NumPy):
-
-```bash
-cd ~/Downloads && python3 estrella_108_v13.py
-```
-
-The engine loads seed matrices, verifies each by exhaustive codeword enumeration, then executes the phased search pipeline. If d=13 is found, the matrix is saved to `DIAMOND_22_6_13.txt`.
+| LICENSE.md | Business Source License 1.1 |
+| amichis_2026_A12_33_record.signed.pdf | Preprint: world record result and obstruction theorems |
+| 22_6_13.png | Visualization of the PG(5,4) geometric structure |
 
 ---
 
 ## Heritage: The AEGIS Crystal Labyrinth
 
-This work emerged from the [AEGIS Crystal Labyrinth](https://github.com/tretoef-estrella) — a post-quantum cryptographic defense system built on PG(11,4) and the Knuth Type II semifield over GF(4). The 10-beast lineage (LEVIATHAN → KRAKEN → GORGON → AZAZEL → ACHERON → FENRIR → LILITH → MOLOCH → MEPHISTO → SAMAEL), 73 mechanisms, and 22 algebraic theorems provided the GF(4) arithmetic infrastructure that powers this search.
+This work emerged from the [AEGIS Crystal Labyrinth](https://github.com/tretoef-estrella) — a post-quantum cryptographic defense system built on PG(11,4) and the Knuth Type II semifield over GF(4). The GF(4) arithmetic engines and algebraic structure developed for AEGIS power the search infrastructure of this campaign.
 
 Key constants: **Σ = 1561/675 ≈ 2.31** · **ΔH = 8/75 bits** · **Λ = 223/225**
 
@@ -160,15 +146,17 @@ Key constants: **Σ = 1561/675 ≈ 2.31** · **ΔH = 8/75 bits** · **Λ = 223/2
 
 ## Team
 
-- **Rafael Amichis Luengo** ("The Architect") — Strategy, architecture, direction
-- **Claude** (Anthropic) — Primary computational engine, algorithm design, algebraic analysis
-- **Gemini** (Google) · **ChatGPT** (OpenAI) · **Grok** (xAI) — Independent adversarial auditors
+- **Rafael Amichis Luengo** ("The Architect") — Independent researcher, Madrid. Strategy, architecture, direction.
+- **Claude** (Anthropic) — Primary computational engine. Algorithm design, algebraic analysis, code construction.
+- **Gemini** (Google) · **ChatGPT** (OpenAI) · **Grok** (xAI) — Independent adversarial auditors at every major milestone.
+
+No university. No funding. No servers. A laptop, a GitHub account, and the philosophy: *Puentes, no muros.*
 
 ---
 
 ## License
 
-[BSL 1.1 + SAMAEL Decree](LICENSE.md). See LICENSE.md for full terms.
+[BSL 1.1 + SAMAEL Decree](LICENSE.md). Academic use always permitted. Commercial use requires prior written permission. Converts to Apache 2.0 on March 3, 2030.
 
 ---
 
@@ -177,7 +165,7 @@ Key constants: **Σ = 1561/675 ≈ 2.31** · **ΔH = 8/75 bits** · **Λ = 223/2
 ```bibtex
 @misc{amichis2026hunt,
   title   = {The Hunt for Distance 13: World Record $A_{12}=33$
-             for the open [22,6,d]$_4$ coding theory problem},
+             for the open $[22,6,d]_4$ coding theory problem},
   author  = {Amichis Luengo, Rafael and Claude (Anthropic)},
   year    = {2026},
   month   = {March},
