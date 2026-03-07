@@ -5,7 +5,7 @@
 ### Parameters
 
 - **Licensor:** Rafael Amichis Luengo (The Architect), Proyecto Estrella
-- **Licensed Work:** The Hunt for Distance 13 — 108 Doctrines Engine and all associated materials
+- **Licensed Work:** The Hunt for Distance 13 — Search engine and all associated materials
 - **Change Date:** March 3, 2030 (four years from publication)
 - **Change License:** Apache License 2.0
 
@@ -18,6 +18,7 @@ The Licensed Work is provided under the terms of the Business Source License 1.1
 **Limitation.** You may not use the Licensed Work for a Commercial Purpose without the Licensor's prior written permission. "Commercial Purpose" means any use intended for or directed toward commercial advantage or monetary compensation.
 
 **Permitted Uses (always allowed without permission):**
+
 - Academic research and education
 - Personal study and experimentation
 - Non-commercial open-source projects
@@ -44,6 +45,7 @@ Any use of this work must include the following attribution:
 ```
 Amichis Luengo, R. & Claude (Anthropic). "The Hunt for Distance 13."
 Proyecto Estrella, March 2026. github.com/tretoef-estrella
+World record: A₁₂ = 33. 1.2B+ evaluations. 6 obstruction theorems.
 Auditors: Gemini (Google), ChatGPT (OpenAI), Grok (xAI).
 ```
 
