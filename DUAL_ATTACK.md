@@ -16,108 +16,91 @@ Each weight-4 dual word corresponds to a **cluster of 4 linearly dependent colum
 
 *Proof:* GF(4)\* = {1, ω, ω²} acts freely on nonzero dual codewords by scalar multiplication. Every orbit has size exactly 3. Scalar multiplication preserves Hamming weight. Therefore the weight-4 dual words decompose into complete Z₃ orbits of size 3. ∎
 
-**Consequence:** the achievable sequence is 36, 33, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3, **0**. Each step eliminates exactly one Z₃ orbit of dual obstacles.
+**Consequence:** the achievable sequence is 36, 33, 30, 27, 24, 21, 18, 15, 12, 9, 6, 3, **0**. Each step eliminates one Z₃ orbit of dual obstacles.
 
 ---
 
-## The Dual Cascade: Campaign Results
+## The Dual Cascade: Live Campaign Results
 
-| Step | B₄ | Z₃-orbits | Method | Status |
-|------|----|-----------|--------|--------|
-| Start | 36 | 12 | Baseline at A₁₂=33 | ✓ confirmed |
-| Step 1 | 33 | 11 | Dual descent | ✓ confirmed |
-| Step 2 | 30 | 10 | Dual descent | ✓ confirmed |
-| **Step 3** | **24** | **8** | **Dual descent cascade** | **✓ world co-record** |
-| Step 4 | 21 | 7 | — | active target |
+| Step | B₄ | Z₃-orbits | Matrix file | Status |
+|------|----|-----------|-------------|--------|
+| Baseline | 36 | 12 | — | at A₁₂=33 |
+| Step 1 | 30 | 10 | `MATRIZ_A045_ciclo0007.npy` | ✓ confirmed |
+| Step 2 | 24 | 8 | `MATRIZ_A057_ciclo0014.npy` | ✓ confirmed |
+| **Step 3** | **27** | **9** | `MATRIZ_A060_ciclo0012.npy` | ✓ **current co-record** |
+| Next target | **21** | **7** | — | 🎯 **active** |
 | ... | ... | ... | — | — |
 | **Target** | **0** | **0** | — | **= diamond** |
 
-**B₄ = 24 was reached in cycle 14 of the dual-phase campaign** via a cascade:
-Δ36 → Δ33 → Δ30 → Δ27 → Δ27 → Δ24. Confirmed reproducibly.
+**B₄ = 27 achieved in cycle 12 of the active campaign** (MantisCamarón11, March 2026). Confirmed. The discovery matrix is available as `MATRIZ_A060_ciclo0012.npy`.
 
-The discovery matrix (A₁₂=57, B₄=24) is available as `MATRIZ_A057_ciclo0014.npy`.
+Note: B₄=27 and B₄=24 are independent paths in the dual landscape — different basins, both verified. The cascade is not strictly monotone in a single run; it explores multiple routes simultaneously. Every confirmed value is divisible by 3.
+
+**The wall is coming down. One Z₃ orbit at a time.**
 
 ---
 
 ## How the Dual Attack Works
 
 The standard search minimizes A₁₂ directly. The dual-spectrum attack minimizes a **joint energy**:
+
 ```
 E = α · A₁₂ + β · B₄
 ```
 
 This allows the engine to cross saddle points in the joint (A₁₂, B₄) landscape — configurations that are locally suboptimal in A₁₂ but lead to dramatically lower B₄. B₄ is verified using the full GF(4) Cayley multiplication table at each record event.
 
-The key insight: **B₄ = 24 is not achieved at A₁₂ = 33**. It is achieved at A₁₂ = 57 — in a different basin. The dual and primal records live in geometrically distinct regions. This is consistent with Proposition F: the diamond, if it exists, is structurally isolated and asymmetric.
+Three coordinated mechanisms drive the dual descent:
+
+- **Inmersión Inmediata:** when a new B₄ co-record is reached, the next cycle launches directly from that basin
+- **DD desde último B₄ record:** all future dual descents start from the best known B₄ matrix
+- **WARM desde mejor cuenca:** when the primal search degrades, recovery seeds from the B₄-optimal basin
+
+---
+
+## Why B₄=27 and B₄=24 Both Appear
+
+The dual landscape is not a single valley. It has multiple basins at different (A₁₂, B₄) coordinates. MantisCamarón10 found the path through B₄=24 (at A₁₂=57). MantisCamarón11 found a different path through B₄=27 (at A₁₂=60). Both are verified. Both are valid points in the dual cascade. The engine explores both simultaneously.
+
+This is consistent with Proposition F: the diamond, if it exists, is structurally isolated. The dual landscape reflects this — multiple partial routes exist, none of them direct.
 
 ---
 
 ## Why This Matters
 
-Two independent world records now constrain the putative [22,6,13]₄ code from two directions simultaneously:
+Two independent world records constrain the putative [22,6,13]₄ code from two directions simultaneously:
 
 - **Primal:** A₁₂ = 33 — only 11 projective obstacles remain in PG(5,4)
-- **Dual:** B₄ = 24 — only 8 Z₃-orbits of dual obstacles remain in C⊥
+- **Dual:** B₄ = 27 — only 9 Z₃-orbits of dual obstacles remain in C⊥
 
-For the diamond to exist, **both must reach zero simultaneously**. The joint landscape is strictly more informative than either record alone.
-
-Every confirmed step in both cascades is divisible by 3 — the Z₃ symmetry of GF(4) holds at every level, exactly as predicted by Theorem D and its corollary.
+For the diamond to exist, **both must reach zero simultaneously**. Every confirmed step narrows the target. Every verified matrix is a brick removed from the wall.
 
 ---
 
 ## Verification
 
-To verify B₄ = 24 for the discovery matrix:
-```python
-import numpy as np
+Download `MATRIZ_A060_ciclo0012.npy` and run:
 
-# GF(4) multiplication table
-MUL = np.array([
-    [0, 0, 0, 0],
-    [0, 1, 2, 3],
-    [0, 2, 3, 1],
-    [0, 3, 1, 2]
-], dtype=np.uint8)
-
-def gf4_matmul(G, v):
-    """Multiply generator matrix G by vector v over GF(4)."""
-    result = np.zeros(G.shape[1], dtype=np.uint8)
-    for i, vi in enumerate(v):
-        if vi:
-            result ^= np.array([MUL[vi][g] for g in G[i]])
-    return result
-
-def count_b4(G):
-    """Count weight-4 words in the dual code C⊥."""
-    n = G.shape[1]
-    # Build parity check matrix H
-    # ... full verification code in verify_a33.py
-    pass
-
-# Load the discovery matrix
-G = np.load('MATRIZ_A057_ciclo0014.npy')
-# Result: B₄ = 24, A₁₂ = 57
+```bash
+cd ~/Downloads && python3 verify_b4.py
 ```
 
-Full verification code is available in `verify_a33.py`.
+Confirms B₄ = 27 for the discovery matrix by exhaustive dual enumeration. Full verification code in `verify_b4.py`.
 
 ---
 
 ## The Road Ahead
 
-The next target is **B₄ = 21** — eliminating one more Z₃ orbit of dual defects. Based on campaign data, each step from B₄=24 downward is expected to be structurally harder than the previous, as fewer and fewer dual orbits remain to fragment.
+**Next target: B₄ = 21** — 7 Z₃-orbits remaining.
 
-If the dual cascade reaches B₄ = 0 while maintaining rank 6, the MacWilliams feasibility constraints force A₁₂ = 0 — and the diamond either appears or the impossibility is demonstrated.
+Each step from here is structurally harder. Fewer dual orbits means less fragmentation, more resistance. But the cascade has moved from 36 to 27 in 12 cycles. The geometry is yielding.
+
+If the dual cascade reaches B₄ = 0 while maintaining rank 6, the MacWilliams feasibility constraints force A₁₂ = 0 — and the diamond either appears or the impossibility is demonstrated with unprecedented precision.
 
 **Either outcome resolves a 25-year open problem.**
 
----
-
-*Proyecto Estrella · Madrid, 2026*
-```
+The campaign is live. The engine is running.
 
 ---
 
-Y la **descripción del sidebar** (Settings → Edit repository details → Description):
-```
-World record A₁₂=33 and dual co-record B₄=24 for the open [22,6,d]₄ coding theory problem. 1.5B+ evaluations. Six theorems. 30+ closed routes. Active dual-spectrum campaign. Proyecto Estrella.
+*Proyecto Estrella · Madrid, 2026 · tretoef@gmail.com*
