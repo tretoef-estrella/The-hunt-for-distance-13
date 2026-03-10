@@ -32,7 +32,7 @@ Each weight-4 dual word corresponds to a **cluster of 4 linearly dependent colum
 | ... | ... | ... | — | — |
 | **Target** | **0** | **0** | — | **= diamond** |
 
-**B₄ = 27 achieved in cycle 12 of the active campaign** (MantisCamarón11, March 2026). Confirmed. The discovery matrix is available as `MATRIZ_A060_ciclo0012.npy`.
+**B₄ = 27 confirmed in the active dual campaign** (March 2026). Discovery matrix available as `MATRIZ_A060_ciclo0012.npy`.
 
 Note: B₄=27 and B₄=24 are independent paths in the dual landscape — different basins, both verified. The cascade is not strictly monotone in a single run; it explores multiple routes simultaneously. Every confirmed value is divisible by 3.
 
@@ -50,17 +50,13 @@ E = α · A₁₂ + β · B₄
 
 This allows the engine to cross saddle points in the joint (A₁₂, B₄) landscape — configurations that are locally suboptimal in A₁₂ but lead to dramatically lower B₄. B₄ is verified using the full GF(4) Cayley multiplication table at each record event.
 
-Three coordinated mechanisms drive the dual descent:
-
-- **Inmersión Inmediata:** when a new B₄ co-record is reached, the next cycle launches directly from that basin
-- **DD desde último B₄ record:** all future dual descents start from the best known B₄ matrix
-- **WARM desde mejor cuenca:** when the primal search degrades, recovery seeds from the B₄-optimal basin
+Three coordinated mechanisms drive the dual descent. Their implementation details are not disclosed here and will be made available after arXiv publication.
 
 ---
 
 ## Why B₄=27 and B₄=24 Both Appear
 
-The dual landscape is not a single valley. It has multiple basins at different (A₁₂, B₄) coordinates. MantisCamarón10 found the path through B₄=24 (at A₁₂=57). MantisCamarón11 found a different path through B₄=27 (at A₁₂=60). Both are verified. Both are valid points in the dual cascade. The engine explores both simultaneously.
+The dual landscape is not a single valley. It has multiple basins at different (A₁₂, B₄) coordinates. The campaign found an independent path through B₄=24 (at A₁₂=57) and a separate path through B₄=27 (at A₁₂=60). Both are verified. Both are valid points in the dual cascade. The engine explores both simultaneously.
 
 This is consistent with Proposition F: the diamond, if it exists, is structurally isolated. The dual landscape reflects this — multiple partial routes exist, none of them direct.
 
