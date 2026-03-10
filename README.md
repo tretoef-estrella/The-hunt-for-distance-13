@@ -64,7 +64,7 @@ A **dual-spectrum attack** targets B₄ — the number of weight-4 codewords in 
 
 **Theorem D Corollary:** B₄ ≡ 0 (mod 3). Confirmed at every step.
 
-**B₄ = 27** achieved in cycle 12 of the active campaign (MantisCamarón11, March 2026). Discovery matrix: `MATRIZ_A060_ciclo0012.npy`.
+**B₄ = 27** confirmed in the active dual campaign (March 2026). Discovery matrix: `MATRIZ_A060_ciclo0012.npy`.
 
 Full dual cascade with verified matrices:
 
@@ -109,14 +109,14 @@ Full proofs in [THEOREMS.md](THEOREMS.md).
 | Phase | Method | Evaluations | A₁₂ | B₄ |
 |-------|--------|-------------|-----|----|
 | Baseline | Prior construction [Grassl 2001] | — | 78 | — |
-| v13 Pitbull | Row recombination | 373M | **42** ★ | — |
-| v22 cycle 28 | Time-SA + d=11 valley | ~1h | **39** ★ | — |
-| v22 cycle 75 | Cascade | ~3h | **36** ★ | — |
-| v22 cycle 141 | WARM cascade | ~7h | **33** ★ | 36 |
-| AZRAEL v13 | Orbit atlas | 293+ cycles | 33 | 36 |
-| MantisCamarón10 cycle 7 | Dual descent | active | 33 | **30** ★ |
-| MantisCamarón10 cycle 14 | Dual cascade | active | 33 | **24** ★ |
-| MantisCamarón11 cycle 12 | Dual cascade | active | 33 | **27** ★ |
+| Phase I | Row recombination | 373M | **42** ★ | — |
+| Phase II | Simulated annealing + valley access | ~1h | **39** ★ | — |
+| Phase II | Cascade | ~3h | **36** ★ | — |
+| Phase II | Guided consolidation | ~7h | **33** ★ | 36 |
+| Phase III | Orbit atlas + geometric memory | 293+ cycles | 33 | 36 |
+| Phase IV | Dual-spectrum engine | active | 33 | **30** ★ |
+| Phase IV | Dual cascade | active | 33 | **24** ★ |
+| Phase IV | Dual cascade | active | 33 | **27** ★ |
 
 ★ = world record at time of achievement.
 **Total: 1.5B+ evaluations · 370+ cycles · 30+ routes closed.**
